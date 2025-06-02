@@ -11,7 +11,7 @@ function initBoard() {
   }
 }
 
-function spawnRandomTile() {
+function spawnRandomTile(isInit) {
   const emptyTiles = [];
   for (let row = 0; row < boardSize; row++) {
     for (let col = 0; col < boardSize; col++) {
@@ -25,13 +25,21 @@ function spawnRandomTile() {
 
   const randomIndex = Math.floor(Math.random() * emptyTiles.length);
   const { row, col } = emptyTiles[randomIndex];
-  const tile = createTile(2, row, col);
+
+  let tile
+
+  if (isInit) {
+    tile = createTile(2, row, col);
+  } else {
+    const twoOrFour = Math.random() < 0.9 ? 2 : 4;
+    tile = createTile(twoOrFour, row, col);
+  }
 
   board[row][col] = tile;
 }
 
 function setInitTile(count) {
   for (let i = 0; i < count; i++) {
-    spawnRandomTile();
+    spawnRandomTile(true);
   }
 }
