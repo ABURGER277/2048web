@@ -35,6 +35,7 @@ function spawnRandomTile(isInit) {
     tile = createTile(twoOrFour, row, col);
   }
 
+
   board[row][col] = tile;
 }
 

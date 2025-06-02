@@ -3,8 +3,9 @@ const tileSize = 100;
 
 function createTile(value, row, col) {
   const tile = document.createElement("div");
-  tile.classList.add("tile");
   tile.textContent = value;
+  tile.classList.add("tile");
+  updateTileStyle(tile, value)
 
   tile.style.transform = `translate(${col * tileSize}px, ${row * tileSize}px)`
 
@@ -21,4 +22,15 @@ function moveTile(tile, toRow, toCol) {
 
   tile.dataset.row = toRow
   tile.dataset.col = toCol
+}
+
+function updateTileStyle(tile, value) {
+  for (const className of tile.classList) {
+    if (className.startsWith("tile-") && className !== "tile") {
+      tile.classList.remove(className);
+    }
+  }
+
+  tile.classList.add(`tile-${value}`)
+  tile.textContent = value;
 }

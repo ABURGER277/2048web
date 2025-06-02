@@ -24,20 +24,18 @@ function mergeTiles(line) {
   let lastTile = null;
 
   for (let i = 0; i < line.length; i++) {
-    // 좌,우 가로줄 / 상,하 세로줄
     const currentTile = line[i];
     if (!currentTile) continue;
 
     const currentTileValue = Number(currentTile.textContent);
 
     if (lastTile && Number(lastTile.textContent) === currentTileValue) {
-      lastTile.textContent = currentTileValue * 2;
+      addScore(currentTileValue * 2);
+      updateTileStyle(lastTile, currentTileValue * 2)
+
       currentTile.remove();
       newLine.push(null);
       lastTile = null;
-
-      addScore(currentTileValue * 2);
-
     } else {
       newLine.push(currentTile);
       lastTile = currentTile;
