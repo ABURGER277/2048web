@@ -35,6 +35,9 @@ function mergeTiles(line) {
       currentTile.remove();
       newLine.push(null);
       lastTile = null;
+
+      addScore(currentTileValue * 2);
+
     } else {
       newLine.push(currentTile);
       lastTile = currentTile;
