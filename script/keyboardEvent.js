@@ -1,24 +1,22 @@
 function keyDownHandler(e) {
+  let moved = false;
   switch(e.key) {
     case "ArrowLeft":
-      moveLeft();
-      spawnRandomTile();
+      moved = moveLeft();
       break;
     case "ArrowRight":
-      moveRight();
-      spawnRandomTile();
+      moved = moveRight();
       break;
     case "ArrowUp":
-      moveUp();
-      spawnRandomTile();
+      moved = moveUp();
       break;
     case "ArrowDown":
-      moveDown();
-      spawnRandomTile();
+      moved = moveDown();
       break;
     default:
       return;
   }
+  if (moved) spawnRandomTile();
 }
 
 function mergeTiles(line) {
@@ -26,6 +24,7 @@ function mergeTiles(line) {
   let lastTile = null;
 
   for (let i = 0; i < line.length; i++) {
+    // 좌,우 가로줄 / 상,하 세로줄
     const currentTile = line[i];
     if (!currentTile) continue;
 
@@ -50,16 +49,24 @@ function mergeTiles(line) {
 }
 
 function moveLeft() {
+  let moved = false;
+
   for (let row = 0; row < boardSize; row++) {
     const oldLine = board[row];
     const newLine = mergeTiles(oldLine);
 
     for (let col = 0; col < boardSize; col++) {
       const currentTile = newLine[col];
+
+      if (board[row][col] !== currentTile) {
+        moved = true;
+      }
+
       if (currentTile) moveTile(currentTile, row, col);
       board[row][col] = currentTile;
     }
   }
+  return moved;
 }
 
 function moveRight() {
@@ -69,10 +76,16 @@ function moveRight() {
 
     for (let col = 0; col < boardSize; col++) {
       const currentTile = newLine[col];
+
+      if (board[row][col] !== currentTile) {
+        moved = true;
+      }
+
       if (currentTile) moveTile(currentTile, row, col);
       board[row][col] = currentTile;
     }
   }
+  return moved;
 }
 
 
@@ -83,10 +96,16 @@ function moveUp() {
 
     for (let row = 0; row < boardSize; row++) {
       const currentTile = newLine[row];
+
+      if (board[row][col] !== currentTile) {
+        moved = true;
+      }
+
       if (currentTile) moveTile(currentTile, row, col);
       board[row][col] = currentTile;
     }
   }
+  return moved;
 }
 
 function moveDown() {
@@ -96,10 +115,16 @@ function moveDown() {
 
     for (let row = boardSize - 1; row >= 0; row--) {
       const currentTile = newLine[row];
+
+      if (board[row][col] !== currentTile) {
+        moved = true;
+      }
+
       if (currentTile) moveTile(currentTile, row, col);
       board[row][col] = currentTile;
     }
   }
+  return moved;
 }
 
 function handleKeyDown(e) {
