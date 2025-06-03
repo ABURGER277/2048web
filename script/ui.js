@@ -7,7 +7,7 @@ function createTile(value, row, col) {
   tile.classList.add("tile");
   updateTileStyle(tile, value)
 
-  tile.style.transform = `translate(${col * tileSize}px, ${row * tileSize}px)`
+  tile.style.transform = `translate(${col * tileSize + 5}px, ${row * tileSize + 5}px)`
 
   tile.dataset.row = row;
   tile.dataset.col = col;
@@ -18,7 +18,7 @@ function createTile(value, row, col) {
 }
 
 function moveTile(tile, toRow, toCol) {
-  tile.style.transform = `translate(${toCol * tileSize}px, ${toRow * tileSize}px)`
+  tile.style.transform = `translate(${toCol * tileSize + 5}px, ${toRow * tileSize + 5}px)`
 
   tile.dataset.row = toRow
   tile.dataset.col = toCol
